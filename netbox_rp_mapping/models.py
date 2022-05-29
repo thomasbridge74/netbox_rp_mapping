@@ -1,7 +1,7 @@
 from django.db import models
-
 from netbox.models import NetBoxModel
 from ipam.models import IPAddress, Prefix
+from django.urls import reverse
 
 
 class StaticRP(NetBoxModel):
@@ -13,9 +13,13 @@ class StaticRP(NetBoxModel):
 
     class Meta:
         ordering = ("rp_address",)
+        verbose_name_plural = "Static RPs"
 
     def __str__(self):
         return str(self.rp_address)
+
+    def get_absolute_url(self):
+        return reverse("plugins:netbox_rp_mapping:rp", args=[self.pk])
 
 
 class RPGroupEntry(NetBoxModel):
@@ -34,6 +38,7 @@ class RPGroupEntry(NetBoxModel):
             "group_name",
             "sequence_no",
         )
+        verbose_name_plural = "RP Group Entries"
 
     def __str__(self):
         if self.remark:
@@ -43,3 +48,6 @@ class RPGroupEntry(NetBoxModel):
             return f"{self.sequence_no} permit host {host}"
         else:
             return f"{self.sequence_no} permit {str(self.mcast_group)}"
+
+    def get_absolute_url(self):
+        return reverse("plugins:netbox_rp_mapping:rpgroup", args=[self.pk])
