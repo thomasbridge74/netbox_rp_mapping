@@ -38,5 +38,8 @@ class RPGroupEntry(NetBoxModel):
     def __str__(self):
         if self.remark:
             return f"{self.sequence_no} remark {self.comments}"
+        elif "/32" in str(self.mcast_group):
+            host = str(self.mcast_group).replace("/32", "")
+            return f"{self.sequence_no} permit host {host}"
         else:
             return f"{self.sequence_no} permit {str(self.mcast_group)}"
