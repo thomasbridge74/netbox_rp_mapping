@@ -50,4 +50,4 @@ class RPGroupEntry(NetBoxModel):
             return f"{self.sequence_no} permit {str(self.mcast_group)}"
 
     def get_absolute_url(self):
-        return reverse("plugins:netbox_rp_mapping:rpgroup", args=[self.pk])
+        return reverse("plugins:netbox_rp_mapping:rpgroupentry", args=[self.pk])

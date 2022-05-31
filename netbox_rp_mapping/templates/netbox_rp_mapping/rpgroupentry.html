@@ -1,0 +1,39 @@
+{% extends 'generic/object.html' %}
+
+{% block content %}
+    <div class="row mb-3">
+        <div class="col col-md-6">
+            <div class="card">
+                <h5 class="card-header">RP Group Entry</h5>
+                <div class="card-body">
+                    <table class="table table-hover attr-table">
+                        <tr>
+                            <th scope="row">Group</th>
+                            <td>
+                                <a href="{{ object.group_name.get_absolute_url }}">{{ object.group_name }}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Sequence Number</th>
+                            <td> {{ object.sequence_no }} </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Multicast Group</th>
+                            <td> {{ object.mcast_group }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Remark</th>
+                            <td> {{ object.remark }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Comments</th>
+                            <td> {{ object.comments }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% include 'inc/panels/custom_fields.html' %}
+        {% include 'inc/panels/tags.html' %}
+    </div>
+{% endblock content %}

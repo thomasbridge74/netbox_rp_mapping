@@ -17,10 +17,12 @@ urlpatterns = (
     ),
     # Entries for the groups belonging to the RP.
     path("rpgroup/", views.RPGroupListView.as_view(), name="rpgroupentry_list"),
-    path("rpgroup/add/", views.RPGroupView.as_view(), name="rpgroupentry_add"),
-    path("rpgroup/<int:pk>/", views.RPGroupListView.as_view(), name="rpgroupentry"),
+    path("rpgroup/add/", views.RPGroupEditView.as_view(), name="rpgroupentry_add"),
+    path("rpgroup/<int:pk>/", views.RPGroupView.as_view(), name="rpgroupentry"),
     path(
-        "rpgroup/<int:pk>/edit", views.RPGroupView.as_view(), name="rpgroupentry_edit"
+        "rpgroup/<int:pk>/edit",
+        views.RPGroupEditView.as_view(),
+        name="rpgroupentry_edit",
     ),
     path(
         "rpgroup/<int:pk>/delete",
@@ -29,7 +31,7 @@ urlpatterns = (
     ),
     path(
         "rpgroup/<int:pk>/changelog",
-        ObjectChangeLogView.as_view,
+        ObjectChangeLogView.as_view(),
         name="rpgroupentry_changelog",
         kwargs={"model": models.RPGroupEntry},
     ),

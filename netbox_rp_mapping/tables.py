@@ -24,6 +24,7 @@ class GroupTable(NetBoxTable):
             "comments",
         )
         default_columns = (
+            "pk",
             "group_name",
             "sequence_no",
             "remark",
@@ -31,5 +32,5 @@ class GroupTable(NetBoxTable):
             "comments",
         )
 
-    # group_name = tables.Column(linkify=True)
-    # mcast_group = tables.Column(linkify=True)
+    group_name = tables.Column(linkify=True)
+    mcast_group = tables.Column(linkify=True)
