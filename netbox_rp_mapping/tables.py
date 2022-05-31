@@ -7,7 +7,7 @@ class RPTable(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = StaticRP
         fields = ("pk", "rp_address", "rp_acl_name", "override")
-        default_columns = ("rp_address", "rp_acl_name", "override")
+        default_columns = ("pk", "rp_address", "rp_acl_name", "override")
 
     rp_address = tables.Column(linkify=True)
 

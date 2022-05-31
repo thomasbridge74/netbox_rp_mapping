@@ -5,6 +5,13 @@ from . import forms, models, tables
 class RPView(generic.ObjectView):
     queryset = models.StaticRP.objects.all()
 
+    def get_extra_context(self, request, instance):
+        # print("Hello World")
+        table = tables.GroupTable(instance.mcast_rp.all())
+        # table = models.RPGroupEntry.objects.all()
+        table.configure(request)
+        return {"rules_table": table}
+
 
 class RPListView(generic.ObjectListView):
     queryset = models.StaticRP.objects.all()
