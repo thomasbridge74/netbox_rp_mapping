@@ -38,7 +38,7 @@ class RPGroupListView(generic.ObjectListView):
 
 class RPGroupEditView(generic.ObjectEditView):
     queryset = models.RPGroupEntry.objects.all()
-    form = forms.RPGroupEntry
+    form = forms.RPGroupForm
 
 
 class RPGroupDeleteView(generic.ObjectDeleteView):
