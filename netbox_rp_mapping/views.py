@@ -34,6 +34,8 @@ class RPGroupView(generic.ObjectView):
 class RPGroupListView(generic.ObjectListView):
     queryset = models.RPGroupEntry.objects.all()
     table = tables.GroupTable
+    filterset = filtersets.RPGroupEntryFilterSet
+    filterset_form = forms.RPGroupEntryFilterForm
 
 
 class RPGroupEditView(generic.ObjectEditView):

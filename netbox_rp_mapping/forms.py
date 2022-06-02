@@ -33,3 +33,12 @@ class StaticRPFilterForm(NetBoxModelFilterSetForm):
     )
     rp_acl_name = forms.CharField(required=False)
     context = forms.BooleanField(required=False)
+
+
+class RPGroupEntryFilterForm(NetBoxModelFilterSetForm):
+    model = RPGroupEntry
+    group_name = forms.ModelChoiceField(queryset=StaticRP.objects.all(), required=False)
+    sequence_no = forms.IntegerField(required=False)
+    remark = forms.BooleanField(required=False)
+    mcast_group = forms.ModelChoiceField(queryset=Prefix.objects.all(), required=False)
+    # comments = forms.Textarea(required=False)
