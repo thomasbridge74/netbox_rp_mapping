@@ -1,5 +1,5 @@
 from netbox.views import generic
-from . import forms, models, tables
+from . import forms, models, tables, filtersets
 
 
 class RPView(generic.ObjectView):
@@ -14,6 +14,8 @@ class RPView(generic.ObjectView):
 class RPListView(generic.ObjectListView):
     queryset = models.StaticRP.objects.all()
     table = tables.RPTable
+    filterset = filtersets.StaticRPFilterSet
+    filterset_form = forms.StaticRPFilterForm
 
 
 class RPEditView(generic.ObjectEditView):
