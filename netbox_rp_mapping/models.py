@@ -1,6 +1,7 @@
 from django.db import models
 from netbox.models import NetBoxModel
 from ipam.models import IPAddress, Prefix
+from dcim.models import Site, Region
 from django.urls import reverse
 
 
@@ -10,6 +11,8 @@ class StaticRP(NetBoxModel):
     )
     rp_acl_name = models.CharField(max_length=64, blank=False, unique=True)
     override = models.BooleanField(default=True)
+    site = models.ForeignKey(to=Site, on_delete=models.DO_NOTHING, null=True)
+    region = models.ForeignKey(to=Region, on_delete=models.DO_NOTHING, null=True)
 
     class Meta:
         ordering = ("rp_address",)
