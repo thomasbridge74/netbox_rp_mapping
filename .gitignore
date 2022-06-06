@@ -1,5 +1,3 @@
 *.egg-info/
 .idea
 __pycache__
-
-netbox_rp_mapping/migrations
