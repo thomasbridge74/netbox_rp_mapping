@@ -18,7 +18,7 @@ class RPGroupEntryFilterSet(NetBoxModelFilterSet):
             "id",
             "group_name",
             "sequence_no",
-            "remark",
+            "acl_command",
             "mcast_group",
             "comments",
         )

@@ -4,6 +4,8 @@ from ipam.models import IPAddress, Prefix
 from dcim.models import Site, Region
 from django.urls import reverse
 
+ACL_CHOICES = (("permit", "permit"), ("deny", "deny"), ("remark", "remark"))
+
 
 class StaticRP(NetBoxModel):
     rp_address = models.ForeignKey(
@@ -13,6 +15,7 @@ class StaticRP(NetBoxModel):
     override = models.BooleanField(default=True)
     site = models.ForeignKey(to=Site, on_delete=models.DO_NOTHING, null=True)
     region = models.ForeignKey(to=Region, on_delete=models.DO_NOTHING, null=True)
+    acl_counters = models.BooleanField(default=False)
 
     class Meta:
         ordering = ("rp_address",)
@@ -30,7 +33,7 @@ class RPGroupEntry(NetBoxModel):
         to=StaticRP, on_delete=models.CASCADE, related_name="mcast_rp"
     )
     sequence_no = models.PositiveBigIntegerField()
-    remark = models.BooleanField()
+    acl_command = models.CharField(max_length=9, choices=ACL_CHOICES, default="remark")
     comments = models.CharField(max_length=128)
     mcast_group = models.ForeignKey(
         to=Prefix, on_delete=models.DO_NOTHING, related_name="mcast_groups", null=True
@@ -44,13 +47,17 @@ class RPGroupEntry(NetBoxModel):
         verbose_name_plural = "RP Group Entries"
 
     def __str__(self):
-        if self.remark:
+        if self.acl_command == "remark":
             return f"{self.sequence_no} remark {self.comments}"
-        elif "/32" in str(self.mcast_group):
+        if "/32" in str(self.mcast_group):
             host = str(self.mcast_group).replace("/32", "")
-            return f"{self.sequence_no} permit host {host}"
+            end = f"host {host}"
         else:
-            return f"{self.sequence_no} permit {str(self.mcast_group)}"
+            end = str(self.mcast_group)
+        if self.acl_command == "deny":
+            return f"{self.sequence_no} deny {end}"
+        else:
+            return f"{self.sequence_no} permit {end}"
 
     def get_absolute_url(self):
         return reverse("plugins:netbox_rp_mapping:rpgroupentry", args=[self.pk])

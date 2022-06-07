@@ -38,7 +38,7 @@ class RPGroupEntrySerializer(NetBoxModelSerializer):
             "url",
             "group_name",
             "sequence_no",
-            "remark",
+            "acl_command",
             "comments",
             "mcast_group",
             "tags",

@@ -19,7 +19,7 @@ class GroupTable(NetBoxTable):
             "pk",
             "group_name",
             "sequence_no",
-            "remark",
+            "acl_command",
             "mcast_group",
             "comments",
         )
@@ -27,7 +27,7 @@ class GroupTable(NetBoxTable):
             "pk",
             "group_name",
             "sequence_no",
-            "remark",
+            "acl_command",
             "mcast_group",
             "comments",
         )

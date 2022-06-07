@@ -1,5 +1,5 @@
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
-from .models import StaticRP, RPGroupEntry
+from .models import StaticRP, RPGroupEntry, ACL_CHOICES
 from utilities.forms.fields import CommentField, DynamicModelChoiceField
 from ipam.models import Prefix, IPAddress
 from django import forms
@@ -14,7 +14,8 @@ class RPForm(NetBoxModelForm):
 class RPGroupForm(NetBoxModelForm):
     comments = CommentField()
     mcast_group = DynamicModelChoiceField(
-        queryset=Prefix.objects.all(), null_option="Select this if entering a remark"
+        queryset=Prefix.objects.filter(prefix__gt="224.0.0.0/4"),
+        null_option="Select this if entering a remark",
     )
 
     class Meta:
@@ -22,7 +23,7 @@ class RPGroupForm(NetBoxModelForm):
         fields = (
             "group_name",
             "sequence_no",
-            "remark",
+            "acl_command",
             "mcast_group",
             "comments",
         )
@@ -45,6 +46,6 @@ class RPGroupEntryFilterForm(NetBoxModelFilterSetForm):
     model = RPGroupEntry
     group_name = forms.ModelChoiceField(queryset=StaticRP.objects.all(), required=False)
     sequence_no = forms.IntegerField(required=False)
-    remark = forms.BooleanField(required=False)
+    acl_command = forms.ChoiceField(choices=ACL_CHOICES)
     mcast_group = forms.ModelChoiceField(queryset=Prefix.objects.all(), required=False)
     # comments = forms.Textarea(required=False)
