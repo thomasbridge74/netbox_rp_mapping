@@ -13,7 +13,9 @@ class RPForm(NetBoxModelForm):
 
 class RPGroupForm(NetBoxModelForm):
     comments = CommentField()
-    mcast_group = DynamicModelChoiceField(queryset=Prefix.objects.all())
+    mcast_group = DynamicModelChoiceField(
+        queryset=Prefix.objects.all(), null_option="Select this if entering a remark"
+    )
 
     class Meta:
         model = RPGroupEntry
@@ -24,6 +26,10 @@ class RPGroupForm(NetBoxModelForm):
             "mcast_group",
             "comments",
         )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["mcast_group"].required = False
 
 
 class StaticRPFilterForm(NetBoxModelFilterSetForm):
