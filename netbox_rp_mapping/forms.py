@@ -2,13 +2,24 @@ from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from .models import StaticRP, RPGroupEntry, ACL_CHOICES
 from utilities.forms.fields import CommentField, DynamicModelChoiceField
 from ipam.models import Prefix, IPAddress
+from dcim.models import Region, Site
 from django import forms
 
 
 class RPForm(NetBoxModelForm):
+    region = DynamicModelChoiceField(queryset=Region.objects.all(), required=False)
+    site = DynamicModelChoiceField(queryset=Site.objects.all(), required=False)
+
     class Meta:
         model = StaticRP
-        fields = ("rp_address", "rp_acl_name", "override")
+        fields = (
+            "rp_address",
+            "rp_acl_name",
+            "override",
+            "region",
+            "site",
+            "acl_counters",
+        )
 
 
 class RPGroupForm(NetBoxModelForm):
