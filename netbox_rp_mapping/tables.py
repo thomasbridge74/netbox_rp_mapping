@@ -6,10 +6,11 @@ from .models import StaticRP, RPGroupEntry
 class RPTable(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = StaticRP
-        fields = ("pk", "rp_address", "rp_acl_name", "override")
-        default_columns = ("pk", "rp_address", "rp_acl_name", "override")
+        fields = ("pk", "rp_acl_name", "rp_address", "override")
+        default_columns = ("rp_acl_name", "rp_address", "override")
 
     rp_address = tables.Column(linkify=True)
+    rp_acl_name = tables.Column(linkify=True)
 
 
 class GroupTable(NetBoxTable):

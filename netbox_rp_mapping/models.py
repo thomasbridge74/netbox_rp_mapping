@@ -22,7 +22,7 @@ class StaticRP(NetBoxModel):
         verbose_name_plural = "Static RPs"
 
     def __str__(self):
-        return str(self.rp_address)
+        return str(self.rp_acl_name)
 
     def get_absolute_url(self):
         return reverse("plugins:netbox_rp_mapping:staticrp", args=[self.pk])
@@ -45,6 +45,7 @@ class RPGroupEntry(NetBoxModel):
             "sequence_no",
         )
         verbose_name_plural = "RP Group Entries"
+        unique_together = ["group_name", "sequence_no"]
 
     def __str__(self):
         if self.acl_command == "remark":
