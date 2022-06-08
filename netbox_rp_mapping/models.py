@@ -38,9 +38,13 @@ class RPGroupEntry(NetBoxModel):
     )
     sequence_no = models.PositiveBigIntegerField()
     acl_command = models.CharField(max_length=9, choices=ACL_CHOICES, default="remark")
-    comments = models.CharField(max_length=128)
+    comments = models.CharField(max_length=128, blank=True)
     mcast_group = models.ForeignKey(
-        to=Prefix, on_delete=models.DO_NOTHING, related_name="mcast_groups", null=True
+        to=Prefix,
+        on_delete=models.DO_NOTHING,
+        related_name="mcast_groups",
+        null=True,
+        blank=True,
     )
 
     class Meta:
