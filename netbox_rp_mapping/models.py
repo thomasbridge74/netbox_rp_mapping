@@ -13,8 +13,12 @@ class StaticRP(NetBoxModel):
     )
     rp_acl_name = models.CharField(max_length=64, blank=False, unique=True)
     override = models.BooleanField(default=True)
-    site = models.ForeignKey(to=Site, on_delete=models.DO_NOTHING, null=True)
-    region = models.ForeignKey(to=Region, on_delete=models.DO_NOTHING, null=True)
+    site = models.ForeignKey(
+        to=Site, on_delete=models.DO_NOTHING, null=True, blank=True
+    )
+    region = models.ForeignKey(
+        to=Region, on_delete=models.DO_NOTHING, null=True, blank=True
+    )
     acl_counters = models.BooleanField(default=False)
 
     class Meta:
