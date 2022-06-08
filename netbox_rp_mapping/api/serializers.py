@@ -32,7 +32,9 @@ class RPGroupEntrySerializer(NetBoxModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name="plugins-api:netbox_rp_mapping-api:rpgroupentry-detail"
     )
-    mcast_group = NestedPrefixSerializer()
+    # This breaks the API - we need to look at enabloing this for null entries
+    # ie remarks.
+    # mcast_group = NestedPrefixSerializer()
 
     class Meta:
         model = RPGroupEntry
