@@ -51,6 +51,8 @@ class StaticRPFilterForm(NetBoxModelFilterSetForm):
     )
     rp_acl_name = forms.CharField(required=False)
     context = forms.BooleanField(required=False)
+    region = forms.ModelChoiceField(queryset=Region.objects.all(), required=False)
+    site = forms.ModelChoiceField(queryset=Site.objects.all(), required=False)
 
 
 class RPGroupEntryFilterForm(NetBoxModelFilterSetForm):
